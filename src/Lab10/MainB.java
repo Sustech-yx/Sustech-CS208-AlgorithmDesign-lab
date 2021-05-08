@@ -53,6 +53,8 @@ public class MainB{
     static long[] answer = new long[200_005];
     static void solve() {
         int n = in.nextInt();
+        Run r = new Run();
+
         int m = in.nextInt();
         int minW, maxW;
         int x, y, z, x1, y1;
@@ -99,6 +101,7 @@ public class MainB{
             out.print(answer[in.nextInt()] + " ");
         }
         out.print(answer[in.nextInt()]);
+        r.end();
     }
     static int[] find;
     static int findT (int index) {
@@ -130,14 +133,16 @@ public class MainB{
     static class Run {
         long startTime;
         long endTime;
-        public Run () {}
+        public Run () {
+            start();
+        }
 
         public void start () {
             startTime = System.currentTimeMillis();
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            out.println((endTime - startTime) + "ms");
+            out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }

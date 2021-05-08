@@ -61,7 +61,9 @@ public class Main {
     static class Run {
         long startTime;
         long endTime;
-        public Run () {}
+        public Run () {
+            start();
+        }
 
         public void start () {
             startTime = System.currentTimeMillis();
