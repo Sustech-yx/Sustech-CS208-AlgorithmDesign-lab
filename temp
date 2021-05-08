@@ -1,0 +1,17 @@
+
+
+
+
+
+
+
+    long temp;
+            for (long i = start; i <= end; i ++) {
+                temp = i;
+                while (temp % 2 == 0) {
+                    temp /= 2;
+                }
+                if (temp % 4 == 1) {
+                    answer ++;
+                }
+            }

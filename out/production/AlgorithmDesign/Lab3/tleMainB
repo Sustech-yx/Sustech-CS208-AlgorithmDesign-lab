@@ -1,0 +1,175 @@
+package Lab3;
+
+import java.io.*;
+import java.util.*;
+
+public class MainB {
+    static class InputReader {
+        public BufferedReader reader;
+        public StringTokenizer tokenizer;
+        public InputReader(InputStream stream) {
+            reader = new BufferedReader(new InputStreamReader(stream), 32768);
+            tokenizer = null;
+        }
+        public String next() {
+            while (tokenizer == null || !tokenizer.hasMoreTokens()) {
+                try {
+                    tokenizer = new StringTokenizer(reader.readLine());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return tokenizer.nextToken();
+        }
+        public int nextInt() {
+            return Integer.parseInt(next());
+        }
+        public long nextLong() {
+            return Long.parseLong(next());
+        }
+        public boolean hasNext() {
+            try {
+                String string = reader.readLine();
+                if (string == null) {
+                    return false;
+                }
+                tokenizer = new StringTokenizer(string);
+                return tokenizer.hasMoreTokens();
+            } catch (IOException e) {
+                return false;
+            }
+        }
+    }
+    static InputReader in = new InputReader(System.in);
+    static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+
+    public static void main(String[] args) {
+        Run r = new Run();
+        int t = in.nextInt();
+        r.start();
+        ini();
+        while (t -- > 0) {
+            solve();
+        }
+        r.end();
+        out.close();
+    }
+    static boolean[] check = new boolean[26];
+    static void ini () {
+        check[0] = true;
+        check['i'-'a'] = true;
+        check['e'-'a'] = true;
+        check['o'-'a'] = true;
+        check['u'-'a'] = true;
+    }
+    static void solve() {
+        String str = in.next();
+        char[] array = str.toCharArray();
+        int n = str.length();
+        Graph myGraph = new Graph(array, n);
+    }
+    static class Pair {
+        int a; int b;
+        public Pair(int a, int b) {
+            this.a = a;
+            this.b = b;
+        }
+    }
+    static class Graph {
+        boolean[] visited = new boolean[26];
+        boolean[] hasV = new boolean[26];
+        int number = 0;
+        int[][] adjToM = new int[26][26];
+        ArrayList<Pair>[] adjTo = new ArrayList[26];
+        boolean[] bString = new boolean[26];
+        byte[] find;
+
+        public Graph (char[] array, int n) {
+            for (int i = 0; i < n; i++) {
+                if (isY(array[i])) continue;
+                hasV[array[i] - 'a'] = true;
+                if (i == n - 1) break;
+                if (!isY(array[i+1])) {
+                    adjToM[array[i]-'a'][array[i+1]-'a'] ++;
+                    adjToM[array[i+1]-'a'][array[i]-'a'] ++;
+                }
+            }
+            for (int i = 0; i < 26; i++) {
+                if (hasV[i]) number ++;
+            }
+            find = new byte[number];
+            int index = 0;
+            for (int i = 0; i < 26; i++) {
+                if (hasV[i]) {
+                    find[index] = (byte) i;
+                    index ++;
+                }
+            }
+            int p, q;
+            for (int i = 0; i < number; i++) {
+                p = find[i];
+                adjTo[p] = new ArrayList<>();
+            }
+            for (int i = 0; i < number; i++) {
+                p = find[i];
+                for (int j = i + 1; j < number; j++) {
+                    q = find[j];
+                    if (adjToM[p][q] > 0) {
+                        adjTo[p].add(new Pair(q, adjToM[p][q]));
+                        adjTo[q].add(new Pair(p, adjToM[p][q]));
+                    }
+                }
+            }
+            work();
+            out.println(answer);
+        }
+        int answer = 0;
+        public void work () {
+            if (number == 0) return;
+            int temp;
+            int maxLoop = (int)Math.pow(2, number);
+            for (int i = 0; i < maxLoop; i ++) {
+                temp = 0;
+                for (int j = 0; j < number; j ++) {
+                    bString[find[j]] = ((i >>> j)&1) == 1;
+                }
+                for (int j = 0; j < 26; j ++) {
+                    visited[j] = false;
+                }
+                for (int j = 0; j < number; j++) {
+                    if (visited[find[j]]) continue;
+                    temp += dfs(-1, find[j], 0);
+                }
+                answer = Math.max(answer, temp);
+            }
+        }
+        public int dfs (int from, int now, int color) {
+            if (visited[now]) return color;
+            visited[now] = true;
+            int i, j;
+            for (Pair pair : adjTo[now]) {
+                i = pair.a; j = pair.b;
+                if (i == from || visited[i]) continue;
+                if (bString[now] ^ bString[i]) color += j;
+            }
+            return color;
+        }
+    }
+    static boolean isY (char c) {
+        return check[c-'a'];
+    }
+    static class Run {
+        long startTime;
+        long endTime;
+        public Run () {}
+
+        public void start () {
+            startTime = System.currentTimeMillis();
+        }
+        public void end () {
+            endTime = System.currentTimeMillis();
+            out.println((endTime - startTime) + " ms");
+        }
+    }
+}
+
