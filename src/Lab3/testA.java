@@ -6,7 +6,7 @@ import java.io.*;
 public class testA {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("in.txt"));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("in.in"));
         int t = 100;
         bufferedWriter.write(t + "\n");
         int m, n, s;

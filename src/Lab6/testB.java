@@ -10,8 +10,8 @@ public class testB {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
         SampleGenerationDevice spg = new SampleGenerationDevice();
-        int n = 20_000;
-        int m = 100000;
+        int n = 200_000;
+        int m = 1000000;
         spg.write(n + " " + m + "\n");
         find = new int[n + 1];
         for (int i = 1; i < n + 1; i++) {

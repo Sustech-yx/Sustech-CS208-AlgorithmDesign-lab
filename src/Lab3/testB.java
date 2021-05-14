@@ -6,7 +6,7 @@ import java.io.*;
 public class testB {
     public static void main(String[] args) throws IOException {
         Random random = new Random();
-        BufferedWriter bw = new BufferedWriter(new FileWriter("in.txt"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("in.in"));
         char[] c_list = new char[26];
         for (int i = 0; i < 26; i++) {
             c_list[i] = (char)(i + 'a'); // 默认26个字母都能出现。

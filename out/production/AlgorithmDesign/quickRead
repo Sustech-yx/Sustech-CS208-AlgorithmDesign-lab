@@ -70,7 +70,7 @@ public class Main {
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            out.println((endTime - startTime) + "ms");
+            out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }

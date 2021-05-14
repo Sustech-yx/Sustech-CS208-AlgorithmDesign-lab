@@ -9,7 +9,7 @@ public class testB {
     public static void main(String[] args) throws IOException {
         Scanner in = new Scanner(System.in);
         Random random = new Random();
-        BufferedWriter bw = new BufferedWriter(new FileWriter("in.txt"));
+        BufferedWriter bw = new BufferedWriter(new FileWriter("in.in"));
 
         // int n = in.nextInt();
         int n = random.nextInt(200_000);
