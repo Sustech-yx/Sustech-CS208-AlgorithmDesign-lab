@@ -1,9 +1,9 @@
-package Lab11;
+package Lab7;
 
 import java.io.*;
 import java.util.*;
 
-public class MainB {
+public class MainA {
     static class InputReader {
         public BufferedReader reader;
         public StringTokenizer tokenizer;
@@ -45,7 +45,7 @@ public class MainB {
 
     public static void main(String[] args) {
         Run r = new Run();
-        int t = 1;
+        int t = in.nextInt();
         r.start();
         ini();
         while (t -- > 0) {
@@ -58,21 +58,7 @@ public class MainB {
 
     }
     static void solve() {
-        int n = in.nextInt();
-        int[] arr = new int[n];
-        for (int i = 0; i < n; i++) {
-            arr[i] = in.nextInt();
-        }
-        long answer = 0;
-        for (int i = 0; i < n - 2; i++) {
-            for (int j = i + 1; j < n - 1; j++) {
-                for (int k = j + 1; k < n; k++) {
-                    if (arr[i] + arr[j] > arr[k] && arr[i] + arr[k] > arr[j] && arr[j] + arr[k] > arr[i])
-                        answer ++;
-                }
-            }
-        }
-        out.print(answer);
+
     }
     static class Run {
         long startTime;
@@ -86,9 +72,8 @@ public class MainB {
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            // out.println("\n" + (endTime - startTime) + "ms");
+            out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }
-
 

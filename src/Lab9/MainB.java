@@ -61,8 +61,6 @@ public class MainB {
             u[i] = in.nextInt();
             v[i] = in.nextInt();
         }
-        String[] temp  = new String[5];
-        Arrays.sort(temp);
         int[] answer = new int[n];
         int cnt;
         for (int i = 0; i < n; i++) {
