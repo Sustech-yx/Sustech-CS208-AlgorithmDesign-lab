@@ -45,7 +45,7 @@ public class MainB {
 
     public static void main(String[] args) {
         Run r = new Run();
-        int t = in.nextInt();
+        int t = 1;
         r.start();
         ini();
         while (t -- > 0) {
@@ -57,8 +57,40 @@ public class MainB {
     static void ini () {
 
     }
-    static void solve() {
 
+    static long[] slimes;
+
+    static void solve() {
+        int n = in.nextInt();
+        if (n == 0) {
+            out.println(0);
+            return;
+        }
+        slimes = new long[n];
+        long[][] dp = new long[n+1][n+1];
+        for (int i = 0; i < n; i++) {
+            slimes[i] = in.nextInt();
+        }
+        int left, right;
+        long min;
+        for (int le = 2; le <= n; le ++) {
+            for (left = 1; left + le - 1 <= n; left ++) {
+                right = le + left - 1;
+                min = Long.MAX_VALUE;
+                for (int mid = left; mid < right; mid++) {
+                    min = Math.min(min, dp[left][mid] + dp[mid+1][right] + cal(left-1, right-1));
+                }
+                dp[left][right] = min;
+            }
+        }
+        out.println(dp[1][n]);
+    }
+    static long cal (int left, int right) {
+        long result = 0;
+        for (int i = left; i <= right; i ++) {
+            result += slimes[i];
+        }
+        return result;
     }
     static class Run {
         long startTime;
@@ -72,7 +104,7 @@ public class MainB {
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            out.println("\n" + (endTime - startTime) + "ms");
+            // out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }
