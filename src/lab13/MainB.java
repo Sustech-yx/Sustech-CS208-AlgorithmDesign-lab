@@ -74,7 +74,11 @@ public class MainB {
         for (int i = 1; i < n; i++) {
             preSum[i] = preSum[i-1] + arr[i];
         }
+        // mei ju mei yi wei (pow[i]) qu ji suan zhe yi wei zui hou zai result zhong neng bu neng chu xian
+        long answer;
+        for (int i = 0; i < 52; i++) {
 
+        }
     }
     static class Run {
         long startTime;
