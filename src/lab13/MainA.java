@@ -45,7 +45,7 @@ public class MainA {
 
     public static void main(String[] args) {
         Run r = new Run();
-        int t = in.nextInt();
+        int t = 1;
         r.start();
         ini();
         while (t -- > 0) {
@@ -58,7 +58,22 @@ public class MainA {
 
     }
     static void solve() {
-
+        int n = in.nextInt();
+        int[] a = new int[n];
+        int[] b = new int[n-1];
+        for (int i = 0; i < n; i++) {
+            a[i] = in.nextInt();
+        }
+        for (int i = 0; i < n - 1; i++) {
+            b[i] = in.nextInt();
+        }
+        int[] dp = new int[n + 1];
+        dp[0] = 0;
+        dp[1] = a[0];
+        for (int i = 2; i <= n; i++) {
+            dp[i] = Math.min(dp[i-2] + b[i-2], dp[i-1] + a[i-1]);
+        }
+        out.println(dp[n]);
     }
     static class Run {
         long startTime;
@@ -72,7 +87,7 @@ public class MainA {
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            out.println("\n" + (endTime - startTime) + "ms");
+            //out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }
