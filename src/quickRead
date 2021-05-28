@@ -42,9 +42,8 @@ public class Main {
     static PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
 
     public static void main(String[] args) {
-        Run r = new Run();
         int t = in.nextInt();
-        r.start();
+        Run r = new Run();
         ini();
         while (t -- > 0) {
             solve();
