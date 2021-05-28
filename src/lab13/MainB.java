@@ -45,7 +45,7 @@ public class MainB {
 
     public static void main(String[] args) {
         Run r = new Run();
-        int t = in.nextInt();
+        int t = 1;
         r.start();
         ini();
         while (t -- > 0) {
@@ -56,39 +56,53 @@ public class MainB {
     }
     static long[] pow;
     static void ini () {
-        pow = new long[55];
+        pow = new long[58];
         pow[0] = 1;
-        for (int i = 1; i < 55; i++) {
+        for (int i = 1; i < 58; i++) {
             pow[i] = pow[i-1] * 2;
         }
     }
     static int n;
     static int k;
-    static long[] arr;
+
     static long[] preSum;
     static void solve() {
         n = in.nextInt();
         k = in.nextInt();
-        arr = new long[n];
+        long[] arr = new long[n];
         for (int i = 0; i < n; i++) {
             arr[i] = in.nextLong();
         }
-        preSum = new long[n];
-        preSum[0] = arr[0];
-        for (int i = 1; i < n; i++) {
-            preSum[i] = preSum[i-1] + arr[i];
+        preSum = new long[n + 1];
+        preSum[0] = 0;
+        for (int i = 1; i <= n; i++) {
+            preSum[i] = preSum[i-1] + arr[i-1];
         }
         // mei ju mei yi wei (pow[i]) qu ji suan zhe yi wei zui hou zai result zhong neng bu neng chu xian
         long answer = 0;
-        for (int i = 51; i >= 0; i++) {
-            if (check(pow[i])) {
-                answer += i;
-            }
+        if (1 == k) {
+            out.println(preSum[n]);
+            return;
+        }
+        for (int i = 57; i >= 0; i --) {
+            if (check(answer+pow[i]))
+                answer += pow[i];
         }
         out.println(answer);
     }
+    static boolean[][] OPT;
     static boolean check(long cha) {
-        return false;
+        OPT = new boolean[n+1][k+1];
+        OPT[0][0] = true; //
+        int x, y, z;
+        for (x = 1; x <= k; x ++) { // fen cheng x fen
+            for (y = 1; y <= n; y ++) { // qian y ge yuan su
+                for (z = 0; z < y; z++) { // qian y ge yuan su zhong de z ge yuan su
+                    OPT[y][x] |= (OPT[z][x-1]) && (((preSum[y]-preSum[z]) & cha) == cha);
+                }
+            }
+        }
+        return OPT[n][k];
     }
     static class Run {
         long startTime;
@@ -102,7 +116,7 @@ public class MainB {
         }
         public void end () {
             endTime = System.currentTimeMillis();
-            out.println("\n" + (endTime - startTime) + "ms");
+            // out.println("\n" + (endTime - startTime) + "ms");
         }
     }
 }
