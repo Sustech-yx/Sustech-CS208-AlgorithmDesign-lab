@@ -1,2 +1,4 @@
 # Sustech-CS208-AlgorithmDesign-labwork
- The work for cs208 lab
+Spring 2021
+ The work for cs208 lab.
+ For learning and communication only, please do not plagiarize.
